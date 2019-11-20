@@ -1,6 +1,6 @@
 package com.example.hotelmanagementsystem.dao;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.example.hotelmanagementsystem.beans.BookingInfoBean;
 import com.example.hotelmanagementsystem.beans.HotelInfoBean;
 import com.example.hotelmanagementsystem.beans.RoomInfoBean;
-import com.example.hotelmanagementsystem.beans.UserDetailsBean;
+import com.example.hotelmanagementsystem.beans.UserBean;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -30,11 +30,13 @@ public class AdminDaoImpl implements AdminDao {
 		entityManager = entityManagerFactory.createEntityManager();
 		transaction = entityManager.getTransaction();
 
-		if (hotelInfoBean != null) {
+		try {
 			transaction.begin();
 			entityManager.persist(hotelInfoBean);
 			transaction.commit();
 			isAdded = true;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		entityManager.close();
@@ -42,18 +44,31 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public boolean updateHotelDetails(HotelInfoBean hotelInfoBaan) {
+	public boolean updateHotelDetails(HotelInfoBean hotelInfoBean) {
 		boolean isUpdated = false;
 		entityManager = entityManagerFactory.createEntityManager();
 		transaction = entityManager.getTransaction();
 
-		if (hotelInfoBaan != null) {
-			transaction.begin();
-			HotelInfoBean hotelInfoBean1 = entityManager.find(HotelInfoBean.class, hotelInfoBaan.getHotelId());
-			hotelInfoBean1.setHotelName(hotelInfoBaan.getHotelName());
-			hotelInfoBean1.setLocation(hotelInfoBaan.getLocation());
-			transaction.commit();
-			isUpdated = true;
+		if (hotelInfoBean != null) {
+
+			HotelInfoBean newHotelInfoBean = entityManager.find(HotelInfoBean.class, hotelInfoBean.getHotelId());
+			if (newHotelInfoBean != null) {
+				if (hotelInfoBean.getHotelName() != null) {
+					newHotelInfoBean.setHotelName(hotelInfoBean.getHotelName());
+				}
+				if (hotelInfoBean.getLocation() != null) {
+					newHotelInfoBean.setLocation(hotelInfoBean.getLocation());
+				}
+			}
+			try {
+				transaction.begin();
+				entityManager.persist(newHotelInfoBean);
+				transaction.commit();
+				isUpdated = true;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		entityManager.close();
@@ -65,14 +80,13 @@ public class AdminDaoImpl implements AdminDao {
 		boolean isDeleted = false;
 		entityManager = entityManagerFactory.createEntityManager();
 		transaction = entityManager.getTransaction();
-
 		if (hotelId > 0) {
 			HotelInfoBean hotelInfoBean = entityManager.find(HotelInfoBean.class, hotelId);
 			transaction.begin();
 			entityManager.remove(hotelInfoBean);
 			transaction.commit();
+			isDeleted = true;
 		}
-
 		entityManager.close();
 		return isDeleted;
 	}
@@ -88,6 +102,8 @@ public class AdminDaoImpl implements AdminDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		entityManager.close();
 		return hotelList;
 	}
 
@@ -96,14 +112,12 @@ public class AdminDaoImpl implements AdminDao {
 		boolean isAdded = false;
 		entityManager = entityManagerFactory.createEntityManager();
 		transaction = entityManager.getTransaction();
-
 		if (roomInfoBean != null) {
 			transaction.begin();
 			entityManager.persist(roomInfoBean);
 			transaction.commit();
 			isAdded = true;
 		}
-
 		entityManager.close();
 		return isAdded;
 	}
@@ -113,17 +127,35 @@ public class AdminDaoImpl implements AdminDao {
 		boolean isUpdated = false;
 		entityManager = entityManagerFactory.createEntityManager();
 		transaction = entityManager.getTransaction();
-
 		if (roomInfoBean != null) {
-			transaction.begin();
-			RoomInfoBean roomInfoBean1 = entityManager.find(RoomInfoBean.class, roomInfoBean.getRoomId());
-			roomInfoBean1.setHotelId(roomInfoBean.getHotelId());
-			roomInfoBean1.setRoomType(roomInfoBean.getRoomType());
-			roomInfoBean1.setRoomCapacity(roomInfoBean.getRoomCapacity());
-			roomInfoBean1.setRoomRent(roomInfoBean.getRoomRent());
-			roomInfoBean1.setRoomStatus(roomInfoBean.getRoomStatus());
-			transaction.commit();
-			isUpdated = true;
+			RoomInfoBean roomInfo = entityManager.find(RoomInfoBean.class, roomInfoBean.getRoomId());
+			if (roomInfo != null) {
+				if (roomInfoBean.getHotelId() != 0) {
+					roomInfo.setHotelId(roomInfoBean.getHotelId());
+				}
+				if (roomInfoBean.getRoomType() != null) {
+					roomInfo.setRoomType(roomInfoBean.getRoomType());
+				}
+				if (roomInfoBean.getRoomCapacity() != 0) {
+					roomInfo.setRoomCapacity(roomInfoBean.getRoomCapacity());
+				}
+				if (roomInfoBean.getRoomRent() != 0) {
+					roomInfo.setRoomRent(roomInfoBean.getRoomRent());
+				}
+				if (roomInfoBean.getRoomStatus() != null) {
+					roomInfo.setRoomStatus(roomInfoBean.getRoomStatus());
+				}
+
+			}
+			try {
+				transaction.begin();
+				entityManager.persist(roomInfo);
+				transaction.commit();
+				isUpdated = true;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		entityManager.close();
@@ -141,11 +173,27 @@ public class AdminDaoImpl implements AdminDao {
 			transaction.begin();
 			entityManager.remove(roomInfoBean);
 			transaction.commit();
-			isDeleted=true;
+			isDeleted = true;
 		}
 
 		entityManager.close();
 		return isDeleted;
+	}
+
+	@Override
+	public List<RoomInfoBean> seeRoomDetails() {
+		entityManager = entityManagerFactory.createEntityManager();
+		String jpql = "from RoomInfoBean";
+		Query query = entityManager.createQuery(jpql);
+		List<RoomInfoBean> roomList = null;
+		try {
+			roomList = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		entityManager.close();
+		return roomList;
 	}
 
 	@Override
@@ -161,14 +209,15 @@ public class AdminDaoImpl implements AdminDao {
 			e.printStackTrace();
 		}
 
+		entityManager.close();
 		return bookingList;
 	}
 
 	@Override
-	public List<UserDetailsBean> guestListOfSpecificHotel(int hotelId) {
+	public List<BookingInfoBean> guestListOfSpecificHotel(int hotelId) {
 		entityManager = entityManagerFactory.createEntityManager();
-		List<UserDetailsBean> guestList = null;
-		String jpql = "from UserDetailsBean where hotelId=:hotelId";
+		List<BookingInfoBean> guestList = null;
+		String jpql = "from BookingInfoBean where hotelId=:hotelId";
 		Query query = entityManager.createQuery(jpql);
 		query.setParameter("hotelId", hotelId);
 		try {
@@ -177,11 +226,12 @@ public class AdminDaoImpl implements AdminDao {
 			e.printStackTrace();
 		}
 
+		entityManager.close();
 		return guestList;
 	}
 
 	@Override
-	public List<BookingInfoBean> bookingListOfSpecificDate(Date date) {
+	public List<BookingInfoBean> bookingListOfSpecificDate(LocalDate date) {
 		entityManager = entityManagerFactory.createEntityManager();
 		List<BookingInfoBean> bookingList = null;
 		String jpql = "from BookingInfoBean where checkinDate=:date";
@@ -193,7 +243,30 @@ public class AdminDaoImpl implements AdminDao {
 			e.printStackTrace();
 		}
 
+		entityManager.close();
 		return bookingList;
 	}
 
+	@Override
+	public UserBean addEmployee(UserBean userBean) {
+		entityManager = entityManagerFactory.createEntityManager();
+		transaction = entityManager.getTransaction();
+		UserBean user = new UserBean();
+		try {
+			user.setUserName(userBean.getUserName());
+			user.setEmail(userBean.getEmail());
+			user.setPassword(userBean.getPassword());
+			user.setPhoneNo(userBean.getPhoneNo());
+			user.setAdharNo(userBean.getAdharNo());
+			user.setNationality(userBean.getNationality());
+			user.setUserType("employee");
+			transaction.begin();
+			entityManager.persist(user);
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		entityManager.close();
+		return user;
+	}
 }

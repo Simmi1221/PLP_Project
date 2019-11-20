@@ -1,12 +1,12 @@
 package com.example.hotelmanagementsystem.service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.example.hotelmanagementsystem.beans.BookingInfoBean;
 import com.example.hotelmanagementsystem.beans.HotelInfoBean;
 import com.example.hotelmanagementsystem.beans.RoomInfoBean;
-import com.example.hotelmanagementsystem.beans.UserDetailsBean;
+import com.example.hotelmanagementsystem.beans.UserBean;
 
 public interface AdminService {
 	
@@ -17,8 +17,9 @@ public interface AdminService {
 	public boolean addRoom(RoomInfoBean roomInfoBean);
 	public boolean updateRoomDetails(RoomInfoBean roomInfoBean);
 	public boolean deleteRoom(int roomId);
+	public List<RoomInfoBean> seeRoomDetails();
 	public List<BookingInfoBean> bookingListOfSpecificHotel(int hotelId);
-	public List<UserDetailsBean> guestListOfSpecificHotel(int hotelId);
-	public List<BookingInfoBean> bookingListOfSpecificDate(Date date);
-
+	public List<BookingInfoBean> guestListOfSpecificHotel(int hotelId);
+	public List<BookingInfoBean> bookingListOfSpecificDate(LocalDate date);
+	public UserBean addEmployee(UserBean userBean);
 }

@@ -1,11 +1,10 @@
 package com.example.hotelmanagementsystem.beans;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,12 +13,13 @@ import javax.persistence.Table;
 public class BookingInfoBean {
 	@Id
 	@Column
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int bookingId;
 	@Column
 	private int roomId;
 	@Column
 	private int userId;
+	@Column
+	private String userName;
 	@Column
 	private double amount;
 	@Column
@@ -27,9 +27,9 @@ public class BookingInfoBean {
 	@Column
 	private String modeOfPayment;
 	@Column
-	private Date checkinDate;
+	private LocalDate checkinDate;
 	@Column
-	private Date checkoutDate;
+	private LocalDate checkoutDate;
 	@Column
 	private int hotelId;
 
@@ -58,6 +58,14 @@ public class BookingInfoBean {
 		this.userId = userId;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public double getAmount() {
 		return amount;
 	}
@@ -82,19 +90,19 @@ public class BookingInfoBean {
 		this.modeOfPayment = modeOfPayment;
 	}
 
-	public Date getCheckinDate() {
+	public LocalDate getCheckinDate() {
 		return checkinDate;
 	}
 
-	public void setCheckinDate(Date checkinDate) {
+	public void setCheckinDate(LocalDate checkinDate) {
 		this.checkinDate = checkinDate;
 	}
 
-	public Date getCheckoutDate() {
+	public LocalDate getCheckoutDate() {
 		return checkoutDate;
 	}
 
-	public void setCheckoutDate(Date checkoutDate) {
+	public void setCheckoutDate(LocalDate checkoutDate) {
 		this.checkoutDate = checkoutDate;
 	}
 

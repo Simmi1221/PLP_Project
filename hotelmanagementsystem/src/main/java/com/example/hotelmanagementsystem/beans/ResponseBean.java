@@ -10,14 +10,44 @@ public class ResponseBean {
 	private int statusCode;
 	private String message;
 	private String description;
+	private String userType;
 	private HotelInfoBean hotelInfoBean;
 	private List<HotelInfoBean> hotelList;
 	private BookingInfoBean bookingInfoBean;
 	private List<BookingInfoBean> bookingList;
-	private UserDetailsBean usrDetailsBean;
-	private List<UserDetailsBean> userList;
+	private UserBean userBean;
+	private List<UserBean> userList;
+	private List<RoomInfoBean> roomList;
 
 	// Getters and Setters
+	public List<RoomInfoBean> getRoomList() {
+		return roomList;
+	}
+
+	public void setRoomList(List<RoomInfoBean> roomList) {
+		this.roomList = roomList;
+	}
+
+	public List<UserBean> getUserList() {
+		return userList;
+	}
+
+	public UserBean getUserBean() {
+		return userBean;
+	}
+
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
+	}
+
+	public void setUserList(List<UserBean> userList) {
+		this.userList = userList;
+	}
+
+	public void setBookingList(List<BookingInfoBean> bookingList) {
+		this.bookingList = bookingList;
+	}
+
 	public int getStatusCode() {
 		return statusCode;
 	}
@@ -40,6 +70,14 @@ public class ResponseBean {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 	public HotelInfoBean getHotelInfoBean() {
@@ -72,22 +110,6 @@ public class ResponseBean {
 
 	public void setBoookingList(List<BookingInfoBean> bookingList) {
 		this.bookingList = bookingList;
-	}
-
-	public UserDetailsBean getUsrDetailsBean() {
-		return usrDetailsBean;
-	}
-
-	public void setUsrDetailsBean(UserDetailsBean usrDetailsBean) {
-		this.usrDetailsBean = usrDetailsBean;
-	}
-
-	public List<UserDetailsBean> getUserList() {
-		return userList;
-	}
-
-	public void setUserList(List<UserDetailsBean> userList) {
-		this.userList = userList;
 	}
 
 }

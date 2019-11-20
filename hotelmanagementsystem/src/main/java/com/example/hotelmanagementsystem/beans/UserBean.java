@@ -2,8 +2,6 @@ package com.example.hotelmanagementsystem.beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,18 +10,23 @@ import javax.persistence.Table;
 public class UserBean {
 	@Id
 	@Column
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userId;
 	@Column
 	private String userName;
 	@Column
 	private String userType;
 	@Column
+	private String phoneNo;
+	@Column
+	private String adharNo;
+	@Column
+	private String nationality;
+	@Column
 	private String password;
 	@Column
 	private String email;
 
-	// Getters andSetters
+	// Getters and Setters
 	public String getEmail() {
 		return email;
 	}
@@ -62,6 +65,30 @@ public class UserBean {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+
+	public String getAdharNo() {
+		return adharNo;
+	}
+
+	public void setAdharNo(String adharNo) {
+		this.adharNo = adharNo;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
 	}
 
 }// end of class
