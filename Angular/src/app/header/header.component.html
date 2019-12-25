@@ -1,0 +1,21 @@
+<div class="topnav  bg-dark" style="height: 70px;">
+ <a>HOTEL MANGEMENT SYSTEM</a>
+    <a *ngIf='!auth.isLoggedIn()' routerLink="/">HOME</a>
+    <a *ngIf='!auth.isLoggedIn()' routerLink="/aboutus">ABOUTUS</a>
+    <a *ngIf='!auth.isLoggedIn()' routerLink="/register">REGISTRATION</a>
+    <a  *ngIf="isAdmin()" routerLink="/hotellist">HOTELLIST</a>
+    <a *ngIf="isAdmin()" routerLink="/roomlist">ROOMLIST</a>
+    <a *ngIf="isAdmin()" routerLink="/guestlist">GUESTLIST</a>
+    <a *ngIf="isAdmin()" routerLink="/addroom">ADDROOM</a>
+    <a   *ngIf='!auth.isLoggedIn()' class="float-right" routerLink="/loginadmin">LOGIN</a>
+    <a routerLink="/service">SERVICE</a>
+    <a *ngIf='!auth.isLoggedIn()' id="search">
+        <form class="form-inline topnav-centered">
+            <input class="form-control mr-sm-2 float-right" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">SEARCH</button>
+        </form>
+    </a> 
+    <button *ngIf='auth.isLoggedIn()' (click)="logout()" class="btn btn-primary float-right">
+        LOGOUT
+      </button>
+</div>

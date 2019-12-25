@@ -1,0 +1,70 @@
+* {box-sizing: border-box;}
+
+/* Style the input container */
+.input-container {
+  display: flex;
+  width: 200px;
+  margin-bottom: 15px;
+}
+
+/* Style the form icons */
+#input{
+  padding: 10px;
+  background: black;
+  color: white;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Style the input fields */
+#pwd {
+  width: 520px;
+  padding: 10px;
+  outline: none;
+}
+#user{
+    width: 520px;
+    padding: 10px;
+  outline: none;
+}
+
+.input-field:focus {
+  border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+.btn {
+  background-color: black;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 36%;
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+       		 
+#color{
+    background-image: url('https://cdn.pixabay.com/photo/2015/01/10/11/39/hotel-595121__480.jpg');
+}
+img{
+    height: 690px;
+    width:790px;
+}
+.card{
+  height: 690px;
+}
+
+input.ng-touched.ng-invalid
+{
+    border:3px solid red;
+
+}
+input.ng-touched.ng-valid
+{
+    border:3px solid green;
+
+}

@@ -1,0 +1,106 @@
+
+<div class="float-left">
+    <img src="https://cdn.pixabay.com/photo/2018/04/05/20/14/travel-3294009__340.jpg" >
+</div>
+<div class="container  col-md-5 float-right ">
+    <form #registerForm='ngForm' (ngSubmit)='register(registerForm)'>
+        <div >
+            <div class="card card-body border-primary">
+                <div class="card-header bg-dark text-white">
+                    <div>
+                        <h4>REGISTER HERE!!!!</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="userName">USER NAME</label>
+                        <input type="userName" name="userName" required class="form-control" #email='ngModel' ngModel
+                            userName placeholder="enter email id" class="form-control mb-3">
+                        <div *ngIf='userName.touched && userName.invalid'>
+                            <p class="alert alert-danger" *ngIf='userName.errors.required'>
+                                field is mandatory
+                            </p>
+                            <p class="alert alert-danger" *ngIf='userName.errors.email'>
+                                input should be email only of type
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">EMAIL ID</label>
+                        <input type="email" name="email" required class="form-control" #email='ngModel' ngModel
+                            email placeholder="enter email id" class="form-control mb-3">
+                        <div *ngIf='email.touched && email.invalid'>
+                            <p class="alert alert-danger" *ngIf='email.errors.required'>
+                                field is mandatory
+                            </p>
+                            <p class="alert alert-danger" *ngIf='email.errors.email'>
+                                input should be email only of type
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNo">PHONE NO</label>
+                        <input type="text" name="phoneNo" required class="form-control" #phoneNo='ngModel' ngModel
+                        phoneNo placeholder="enter email id" class="form-control mb-3">
+                        <div *ngIf='phoneNo.touched && phoneNo.invalid'>
+                            <p class="alert alert-danger" *ngIf='phoneNo.errors.required'>
+                                field is mandatory
+                            </p>
+                            <p class="alert alert-danger" *ngIf='phoneNo.errors.email'>
+                                input should be email only of type
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="adharNo">ADHAR NO</label>
+                        <input type="text" name="adharNo" required class="form-control" #adharNo='ngModel' ngModel
+                            adharNo placeholder="enter email id" class="form-control mb-3">
+                        <div *ngIf='adharNo.touched && adharNo.invalid'>
+                            <p class="alert alert-danger" *ngIf='adharNo.errors.required'>
+                                field is mandatory
+                            </p>
+                            <p class="alert alert-danger" *ngIf='adharNo.errors.email'>
+                                input should be email only of type
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">NATIONALITY</label>
+                        <select class="form-control" name="nationality" #nationality='ngModel'  ngModel id="exampleFormControlSelect1">
+                            <option disabled>select</option>
+                            <option>INDIAN</option>
+                            <option>AMERICAN</option>
+                        </select>
+                        </div>
+                    <div class="form-group">
+                        <label for="password">PASSWORD</label>
+                        <input type="password" name="password" required class="form-control" #password='ngModel' ngModel
+                            placeholder="enter password" class="form-control mb-3"
+                            pattern="(?=.*[a-zA-Z])(?=.*[0-9]).{6,8}">
+                        <div *ngIf='password.touched && password.invalid'>
+                            <p class="alert alert-danger" *ngIf='password.errors.required'>
+                                field is mandatory
+                            </p>
+                            <p class="alert alert-danger" *ngIf='password.errors.pattern'>
+                              please enter according to pattern
+                            </p>
+
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary float-right" [disabled]='registerForm.invalid'
+                        type='submit'>REGISTER</button>
+                        <button class="btn btn-primary float-right" 
+                        type='submit'>RESET</button>
+                </div>
+            
+
+            
+            </div>
+        </div>
+    </form>
+    </div>

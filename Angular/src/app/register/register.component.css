@@ -1,0 +1,62 @@
+* {box-sizing: border-box;}
+
+/* Style the input container */
+.input-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.card-header {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.card {
+    height: 690px;
+} 
+
+img {
+    width: 920px;
+    height:700px;
+}
+
+
+/* Style the form icons */
+#input{
+  padding: 10px;
+  background: black;
+  color: white;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Style the input fields */
+#pwd {
+  width: 360px;
+  padding: 10px;
+  outline: none;
+}
+#user{
+    width: 360px;
+    padding: 10px;
+  outline: none;
+}
+
+.input-field:focus {
+  border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+.btn {
+  background-color: black;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 36%;
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1;
+}

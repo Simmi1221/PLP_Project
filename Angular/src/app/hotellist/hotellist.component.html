@@ -1,0 +1,147 @@
+<div><button type="submit" class="btn-success col-md-2 offset-5 mb-5 mt-5"
+        style="height: 50px;border-radius: 5px; font-size:x-large;" data-toggle="modal" data-target="#exampleModal">ADD
+        HOTEL</button>
+
+    <div class="modal fade text-dark" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="card-header bg text-white ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ADD HOTEL</h5>
+                        <button type="button" class="close" data-dismiss="modal" (click)="getHotelList()"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <h4 sstyle="color: dodgerblue;" *ngIf='update'>{{hotelList.description}}</h4>
+                    <form #addHotel="ngForm" (ngSubmit)="submitForm(addHotel)">
+                        <input type="hidden" name="hotelId" #hotelId="ngModel" [(ngModel)]="selectedHotel.hotelId">
+
+                        <div class="form-group">
+                            <label for="hotelName">HOTEL NAME</label>
+                            <input type="text" name="hotelName" class="form-control " #hotelName="ngModel" ngModel
+                                required pattern="(?=.*[a-zA-Z]).{5,20}">
+                            <div *ngIf='hotelName.touched && hotelName.invalid'>
+                                <p class="alert alert-danger" *ngIf='hotelName.errors.required'> field is
+                                    mandatory</p>
+                                <p class="alert alert-danger" *ngIf='hotelName.errors.pattern'> only
+                                    minlength 5 and maxlength 20 character only</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">LOCATION</label>
+                            <input type="text" name="location" class="form-control" #location="ngModel" ngModel required
+                                pattern="(?=.*[a-z A-Z 0-9]).(?=.*[a-zA-Z]).{4,20}">
+                            <div *ngIf='location.touched && location.invalid'>
+                                <p class="alert alert-danger" *ngIf='location.errors.required'> field is
+                                    mandatory</p>
+                                <p class="alert alert-danger" *ngIf='location.errors.pattern'> only minlength
+                                    4 and maxlength 20 </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="imageUrl">IMAGE PATH</label>
+                            <input type="text" name="imageUrl" class="form-control" #imageUrl="ngModel" ngModel required>
+                        </div>
+                        <div class="btn-grroup float-right">
+                            <button type="submit" class="btn btn-outline-primary"
+                                [disabled]='addHotel.invalid'>SUBMIT</button>
+                            <button type="reset" class="btn btn-outline-dark">RESET</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container card card-body mt-2 ">
+    <table class="table table-bordered table-hover ">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th>HOTEL ID</th>
+                <th>HOTEL NAME</th>
+                <th>HOTEL LOCATION</th>
+                <th>UPDATE</th>
+                <th>DELETE</th>
+            </tr>
+        </thead>
+        <tbody class="text-dark">
+            <tr *ngFor='let hotelList of hotelArray'>
+                <td>{{hotelList.hotelId}}</td>
+                <td>{{hotelList.hotelName}}</td>
+                <td>{{hotelList.location}}</td>
+                <td><button type="button" class="btn btn-outline-primary" (click)='selectHotel(hotelList)'
+                        data-toggle="modal" data-target="#exampleModal1">UPDATE</button>
+                    <div class="modal fade text-dark" id="exampleModal1" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabe1l" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="card-header bg text-white ">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel1">UPDATE HOTEL</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            (click)="getHotelList()" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <form #updateHotel="ngForm" (ngSubmit)="updateForm(updateHotel)">
+                                        <input type="hidden" name="pk" #pk='ngModel' [(ngModel)]="selectedHotel.pk">
+                                        <div class="form-group">
+                                            <label for="hotelId"></label>
+                                            <input type="hidden" name="productId" class="form-control "
+                                                #hotelId="ngModel" [(ngModel)]="selectedHotel.hotelId" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="hotelName">HOTEL NAME</label>
+                                            <input type="text" name="hotelName" class="form-control "
+                                                #hotelName="ngModel" [(ngModel)]="selectedHotel.hotelName" required
+                                                pattern="(?=.*[a-zA-Z]).{5,20}">
+                                            <div *ngIf='hotelName.touched && hotelName.invalid'>
+                                                <p class="alert alert-danger" *ngIf='hotelName.errors.required'> field
+                                                    is
+                                                    mandatory</p>
+                                                <p class="alert alert-danger" *ngIf='hotelName.errors.pattern'> only
+                                                    minlength 5 and maxlength 20 character only</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="location">LOCATION</label>
+                                            <input type="text" name="location" class="form-control" #location="ngModel"
+                                                [(ngModel)]="selectedHotel.location" required
+                                                pattern="(?=.*[a-z A-Z 0-9]).(?=.*[a-zA-Z]).{6,25}">
+                                            <div *ngIf='location.touched && location.invalid'>
+                                                <p class="alert alert-danger" *ngIf='location.errors.required'> field is
+                                                    mandatory</p>
+                                                <p class="alert alert-danger" *ngIf='location.errors.pattern'> only
+                                                    minlength
+                                                    6 and maxlength 25 </p>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-secondary">
+                                            <button class="btn btn-outline-primary bg-primary active "
+                                                type='reset'>RESET</button>
+                                            <button class="btn btn-outline-primary bg-primary active float-right"
+                                                [disabled]='updateHotel.invalid' type='submit'>SUBMIT</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-outline-danger" (click)="deleteHotel(hotelList)">DELETE</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,124 @@
+<a class="card card-body col-md-4 offset-4  mt-3 ">
+    <div class=" card-header bg-dark text-white mt-4">
+        <form class="form-inline topnav-centered">
+            <input class="form-control mr-sm-2 float-right" type="search" [(ngModel)]="search" placeholder="Search"
+                aria-label="Search" style="width: 300px;">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">SEARCH</button>
+        </form>
+    </div>
+
+</a>
+
+<div class="container card card-body mt-2 ">
+    <table class="table table-bordered table-hover ">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th>HOTEL ID</th>
+                <th>ROOM ID</th>
+                <th>ROOM TYPE</th>
+                <th>ROOM CAPACITY</th>
+                <th>ROOM STATUS</th>
+                <th>ROOM RENT</th>
+                <th>UPDATE </th>
+                <th>DELETE </th>
+            </tr>
+        </thead>
+        <tbody class="text-dark">
+            <tr *ngFor='let roomList of roomArray'>
+                <td>{{roomList.hotelId}}</td>
+                <td>{{roomList.roomId}}</td>
+                <td>{{roomList.roomType}}</td>
+                <td>{{roomList.roomCapacity}}</td>
+                <td>{{roomList.roomStatus}}</td>
+                <td>{{roomList.roomRent}}</td>
+                <td><button type="button" class="btn btn-outline-primary" (click)="deleteRoom(roomList)">DELETE</button>
+                </td>
+                <td><button type="button" class="btn btn-outline-primary" (click)='selectRoom(roomList)'
+                        data-toggle="modal" data-target="#exampleModal1">UPDATE </button>
+                    <div class="modal fade text-dark" id="exampleModal1" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabe1l" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="card-header bg-dark text-white ">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel1">UPDATE ROOM</h5>
+                                        <button type="button" class="close" data-dismiss="modal" (click)="getRoomList()"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <form #updateRoom="ngForm" (ngSubmit)="updateForm(updateRoom)">
+                                        <input type="hidden" name="pk" #pk='ngModel' [(ngModel)]="selectedRoom.pk">
+                                        <div class="form-group">
+                                            <label for="roomId"></label>
+                                            <input type="hidden" name="roomId" class="form-control " #hotelId="ngModel"
+                                                [(ngModel)]="selectedRoom.roomId"
+                                                pattern="(?=.*[a-zA-Z0-9]).(?=.*[1-9]).{1,50}" required>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="hotelId">HOTEL ID</label>
+                                            <input type="number" name="hotelId" #hotelId='ngModel'
+                                                [(ngModel)]="selectedRoom.hotelId" required class="form-control "
+                                                pattern="(?=.*[1-9]).{1,50}">
+
+                                        </div>
+
+                                        <div>
+
+                                            <label for="exampleFormControlSelect1">ROOM TYPE</label>
+                                            <select class="form-control" name="roomType" #roomType='ngModel'
+                                                [(ngModel)]="selectedRoom.roomType" id="exampleFormControlSelect1">
+                                                <option disabled>select</option>
+                                                <option>NON AC CLASSIC (2x)</option>
+                                                <option>NON AC CLASSIC (1x)</option>
+                                                <option>AC CLASSIC (2x)</option>
+                                                <option>AC CLASSIC (1x)</option>
+
+                                            </select>
+
+                                        </div>
+                                        <div>
+                                            <label for="exampleFormControlSelect1">ROOM CAPACITY</label>
+                                            <select class="form-control" name="roomCapacity" #roomCapacity='ngModel'
+                                                [(ngModel)]="selectedRoom.roomCapacity" id="exampleFormControlSelect1">
+                                                <option disabled>select</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label for="exampleFormControlSelect1">ROOM STATUS</label>
+                                            <select class="form-control" name="roomStatus" #roomStatus='ngModel'
+                                                [(ngModel)]="selectedRoom.roomStatus" id="exampleFormControlSelect1">
+                                                <option disabled>select</option>
+                                                <option>AVAILABLE</option>
+                                                <option>NOT AVAILABLE</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="roomRent">ROOM RENT</label>
+                                            <input type="number" name="roomRent" #roomRent='ngModel'
+                                                [(ngModel)]="selectedRoom.roomRent" required class="form-control">
+
+                                        </div>
+                                        <div class="card-footer bg-secondary">
+                                            <button class="btn btn-outline-primary bg-primary active "
+                                                type='reset'>RESET</button>
+                                            <button class="btn btn-outline-primary bg-primary active float-right"
+                                                [disabled]='updateRoom.invalid' type='submit'>SUBMIT</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

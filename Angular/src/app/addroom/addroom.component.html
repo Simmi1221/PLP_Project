@@ -1,0 +1,74 @@
+<div class="col-md-4 offset-md-4 mt-5 card card-body border-primary">
+    <div class="alert alert-danger" *ngIf="notValid">{{notValid.description}}</div>
+    <form #addForm='ngForm' (ngSubmit)='submit(addForm)'>
+        <div class="card">
+            <div class="card card-body border-primary">
+                <div class=" card-header bg-secondary text-white">
+                    <h4>ADD ROOMS!!!!</h4>
+                </div>
+                <div class="form-group">
+                    <label for="hotelId">HOTEL ID</label>
+                    <input type="number" name="hotelId" #hotelId='ngModel' ngModel required class="form-control "
+                        pattern="(?=.*[1-9]).{1,50}">
+                    <div *ngIf='hotelId.touched && hotelId.invalid'>
+                        <p class="alert alert-danger" *ngIf='hotelId.errors.required'> field is mandatory</p>
+                        <p class="alert alert-danger" *ngIf='hotelId.errors.pattern'> enter only characters</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="roomId">ROOM ID</label>
+                    <input type="number" name="roomId" #roomId='ngModel' ngModel required class="form-control "
+                        pattern="(?=.*[a-zA-Z0-9]).(?=.*[1-9]).{1,50}">
+                    <div *ngIf='roomId.touched && roomId.invalid'>
+                        <p class="alert alert-danger" *ngIf='roomId.errors.required'> field is mandatory</p>
+                        <p class="alert alert-danger" *ngIf='roomId.errors.pattern'> only minlength 6 and maxlength
+                            25 </p>
+                    </div>
+                </div>
+                <div>
+
+                    <label for="exampleFormControlSelect1">ROOM TYPE</label>
+                    <select class="form-control" name="roomType" #roomType='ngModel'  ngModel id="exampleFormControlSelect1">
+                        <option disabled>select</option>
+                        <option>NON AC CLASSIC (2x)</option>
+                        <option>NON AC CLASSIC (1x)</option>
+                        <option>AC CLASSIC (2x)</option>
+                        <option>AC CLASSIC (1x)</option>
+                       
+                    </select>
+
+                </div>
+                <div>
+                    <label for="exampleFormControlSelect1">ROOM CAPACITY</label>
+                    <select class="form-control" name="roomCapacity" #roomCapacity='ngModel'  ngModel id="exampleFormControlSelect1">
+                        <option disabled>select</option>
+                        <option>1</option>
+                        <option>2</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="exampleFormControlSelect1">ROOM STATUS</label>
+                    <select class="form-control" name="roomStatus" #roomStatus='ngModel'  ngModel id="exampleFormControlSelect1">
+                        <option disabled>select</option>
+                        <option>AVAILABLE</option>
+                        <option>NOT AVAILABLE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="roomRent">ROOM RENT</label>
+                    <input type="number" name="roomRent" #roomRent='ngModel' ngModel required class="form-control">
+                    <div *ngIf='roomRent.touched && roomRent.invalid'>
+                        <p class="alert alert-danger" *ngIf='roomRent.errors.required'>
+                            field is mandatory
+                        </p>
+                    </div>
+                </div>
+                <div class="card-footer bg-secondary">
+                    <button class="btn btn-outline-primary bg-primary active " type='reset'>RESET</button>
+                    <button class="btn btn-outline-primary bg-primary active float-right" [disabled]='addForm.invalid'
+                        type='submit'>SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
